@@ -1,0 +1,35 @@
+all:
+  hosts:
+    kube-dev-kube-cp-1021:
+      ansible_host: 192.168.5.102
+      ip: 192.168.5.102
+      access_ip: 192.168.5.102
+    kube-dev-kube-node-1031:
+      ansible_host: 192.168.5.105
+      ip: 192.168.5.105
+      access_ip: 192.168.5.105
+    kube-dev-kube-node-1032:
+      ansible_host: 192.168.5.106
+      ip: 192.168.5.106
+      access_ip: 192.168.5.106
+    kube-dev-kube-node-1033:
+      ansible_host: 192.168.5.107
+      ip: 192.168.5.107
+      access_ip: 192.168.5.107
+  children:
+    kube_control_plane:
+      hosts:
+        kube-dev-kube-cp-1021: {}
+    kube_node:
+      hosts:
+        kube-dev-kube-node-1031: {}
+        kube-dev-kube-node-1032: {}
+        kube-dev-kube-node-1033: {}
+    etcd:
+      hosts:
+        kube-dev-kube-cp-1021: {}
+    k8s_cluster:
+      children:
+        kube_control_plane: {}
+        kube_node: {}
+    calico_rr: {}

@@ -1,0 +1,20 @@
+---
+haproxy:
+  hosts:
+    kube-dev-haproxy-1011:
+      ansible_host: 192.168.5.101
+      ansible_user: ubuntu
+      ansible_become: yes
+      ansible_become_method: sudo
+kube-cp:
+  hosts:
+    kube-dev-kube-cp-1021:
+      ansible_host: 192.168.5.102
+kube-node:
+  hosts:
+    kube-dev-kube-node-1031:
+      ansible_host: 192.168.5.105
+    kube-dev-kube-node-1032:
+      ansible_host: 192.168.5.106
+    kube-dev-kube-node-1033:
+      ansible_host: 192.168.5.107

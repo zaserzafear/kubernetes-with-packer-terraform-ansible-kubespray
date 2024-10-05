@@ -1,0 +1,27 @@
+---
+- name: Install and configure HAProxy
+  hosts: haproxy
+  become: yes
+  tasks:
+    - name: Ensure dpkg is in a consistent state
+      command: sudo dpkg --configure -a
+      ignore_errors: yes
+
+    - name: Install HAProxy
+      apt:
+        name: haproxy
+        state: present
+        update_cache: yes
+
+    - name: Deploy HAProxy configuration
+      template:
+        src: haproxy.cfg.j2
+        dest: /etc/haproxy/haproxy.cfg
+      notify:
+        - Restart HAProxy
+
+  handlers:
+    - name: Restart HAProxy
+      service:
+        name: haproxy
+        state: restarted
